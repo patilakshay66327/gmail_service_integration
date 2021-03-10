@@ -1,25 +1,85 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import emailjs from "emailjs-com";
+import "./App.css";
 
-function App() {
+const App = () => {
+  const {
+    REACT_APP_EMAIL_SERVICE_USER_ID,
+    REACT_APP_EMAIL_SERVICE_TEMPLATE_ID,
+    REACT_APP_EMAIL_SERVICE_SERVICE_ID,
+  } = process.env;
+
+  console.log("sdkajfhkljd : ", REACT_APP_EMAIL_SERVICE_USER_ID);
+
+  const sendMail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm(
+        REACT_APP_EMAIL_SERVICE_SERVICE_ID,
+        REACT_APP_EMAIL_SERVICE_TEMPLATE_ID,
+        e.target,
+        REACT_APP_EMAIL_SERVICE_USER_ID
+      )
+      .then(
+        (result) => {
+          console.log(result.text);
+        },
+        (error) => {
+          console.log(error.text);
+        }
+      );
+    e.target.reset();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="App container">
+      <form onSubmit={sendMail}>
+        <div className="row" style={{ padding: "50px", marginTop: "10%" }}>
+          <div className="col-2"></div>
+          <div className="col-7">
+          <h2>Send Mail for Enquiry</h2>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Name"
+                name="name"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="email"
+                placeholder="Email Address"
+                name="email"
+              />
+            </div>
+            <div className="form-group">
+              <input
+                className="form-control"
+                type="text"
+                placeholder="Subject"
+                name="subject"
+              />
+            </div>
+            <div className="form-group">
+              <textarea
+                className="form-control"
+                rows="8"
+                type="text"
+                placeholder="Your Message"
+                name="message"
+              />
+            </div>
+            <div className="form-group">
+              <input className="btn btn-primary" type="submit" value="Send Mail" />
+            </div>
+          </div>
+        </div>
+      </form>
     </div>
   );
-}
+};
 
 export default App;

@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## deployed [Demo Email Service](https://patilakshay66327.github.io/gmail_service_integration/).
+
 ## Available Scripts
 
 In the project directory, you can run:
